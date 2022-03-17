@@ -13,52 +13,27 @@
 <div align="center">
 	<h1>Welcome to Report Page!</h1><br>
 		<h4>Here are your details...</h4>
-		<%try {
-		String url="jdbc:mysql://localhost:3306/employees";
-		String sqlusername="root";
-		String sqlpass="rootpassword1";
-		String query="select * from amit_111915014_detail where username=?";
-		
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con=DriverManager.getConnection(url,sqlusername,sqlpass);
-	
-		PreparedStatement st=con.prepareStatement(query);
-		
-		String uname=request.getParameter("username");
-		System.out.println(uname);
-		
-		
-		st.setString(1, uname);
-		
-
-		ResultSet rs=st.executeQuery();
-		
-		
-		%>
-
 		<%
-		while (rs.next()) {
-		%>
-		rs.getString(2);
-		out.println(rs.getString(2));
-		<% } %>
-		
-		<%
-		rs.close();
-		st.close();
-		con.close();
-		} 
-		
-		catch (Exception ex) {
-		%>
-		
-		</font>
-		<font size="+3" color="red"></b>
-		
-		<%
-		out.println("Unable to connect to database.");
+		response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+		if(session.getAttribute("username")==null)
+		{
+			response.sendRedirect("login.jsp");
 		}
-		%>
+	%>
+
+	<h1>Welcome ${username}</h1>
+	<form action="Logout">
+	   Enter user id: <input type="text"><br>
+		<input type="submit" value="submit">
+	</form>
+	
+	<h4>First name:${firstName}</h4>
+	<h4>Last name:${lastName}</h4>
+	<h4>Contact number:${contact}</h4>
+	<h4>Job role:${Job_role}</h4>
+	<h4>Monthly salary:$Monthly_salary}</h4>
+	<h4>Yearly Bonus:${Yearly_bonus}</h4>
+	<h4>Total Anual Salary :${Anual_sal}</h4>
 
 </div>
 	</body>
